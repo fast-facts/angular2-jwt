@@ -1,0 +1,68 @@
+{
+  "root": true,
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "src/tsconfig.app.json",
+          "src/tsconfig.spec.json",
+          "projects/angular-jwt/tsconfig.lib.json",
+          "projects/angular-jwt/tsconfig.lib.prod.json",
+          "projects/angular-jwt/tsconfig.spec.json"
+        ]
+      },
+      "plugins": [
+        "@typescript-eslint",
+        "rxjs",
+        "rxjs-angular"
+      ],
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:rxjs/recommended"
+      ],
+      "rules": {
+        "eqeqeq": [
+          "error",
+          "always",
+          {
+            "null": "ignore"
+          }
+        ],
+        "no-return-await": "error",
+        "prefer-arrow-callback": "error",
+        "quote-props": [
+          "error",
+          "as-needed"
+        ],
+        "semi": [
+          "error",
+          "always"
+        ],
+        "@typescript-eslint/no-empty": "off",
+        "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "rxjs/no-nested-subscribe": "off",
+        "rxjs/no-unsafe-catch": "error",
+        "rxjs/no-unsafe-switchmap": "error",
+        "rxjs/no-unsafe-takeuntil": "error",
+        "rxjs-angular/prefer-takeuntil": "error"
+      }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ]
+    }
+  ]
+}

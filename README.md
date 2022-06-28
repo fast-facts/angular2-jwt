@@ -1,8 +1,18 @@
+This repo is solely meant for automated updates of dependencies found in auth0's [angular-jwt](https://github.com/auth0/angular2-jwt) package.
+
+PRs will not be accepted for new features or bug fixes. Reach out to the original maintainer.
+
+```
+npm install angular-jwt-updated
+```
+
+---
+
 # @auth0/angular-jwt
 
 [![npm version](https://badge.fury.io/js/%40auth0%2Fangular-jwt.svg)](https://badge.fury.io/js/%40auth0%2Fangular-jwt)
 
-### **NOTE:** This library is now at version 5 and is published on npm as `@auth0/angular-jwt`. If you're looking for the pre-v1.0 version of this library, it can be found in the `pre-v1.0` branch and on npm as `angular2-jwt`.
+### **NOTE:** This library is now at version 5 and is published on npm as `@auth0/angular-jwt`. If you're looking for the pre-v1.0 version of this library, it can be found in the `pre-v1.0` branch and on npm as `angular2-jwt`
 
 **Version v5 of this library has some breaking changes concerning the `allowedDomains` and `disallowedRoutes`.**
 
@@ -397,8 +407,8 @@ Auth0 helps you to:
 
 ## Create a free Auth0 account
 
-1.  Go to [Auth0](https://auth0.com/signup) and click Sign Up.
-2.  Use Google, GitHub or Microsoft Account to login.
+1. Go to [Auth0](https://auth0.com/signup) and click Sign Up.
+2. Use Google, GitHub or Microsoft Account to login.
 
 ## Issue Reporting
 
