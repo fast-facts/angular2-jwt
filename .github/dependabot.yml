@@ -12,6 +12,7 @@ updates:
       - dependencies
     ignore:
       - dependency-name: '@angular*'
+      - dependency-name: 'ng-packagr'
       - dependency-name: 'typescript'
         versions: ['>=5.2.0']
     groups:
