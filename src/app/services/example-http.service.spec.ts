@@ -1,9 +1,7 @@
 import { TestBed } from "@angular/core/testing";
 import { ExampleHttpService } from "./example-http.service";
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from "@angular/common/http/testing";
+import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
+import { HttpTestingController, provideHttpClientTesting } from "@angular/common/http/testing";
 import { JwtModule } from "angular-jwt";
 
 export function tokenGetter() {
@@ -50,7 +48,6 @@ describe("Example HttpService: with simple tokken getter", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        HttpClientTestingModule,
         JwtModule.forRoot({
           config: {
             tokenGetter: tokenGetter,
@@ -61,8 +58,9 @@ describe("Example HttpService: with simple tokken getter", () => {
               /disallowed-regex*/,
             ],
           },
-        }),
+        })
       ],
+      providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
     });
     service = TestBed.inject(ExampleHttpService);
     httpMock = TestBed.inject(HttpTestingController);
@@ -112,14 +110,14 @@ describe("Example HttpService: with request based tokken getter", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        HttpClientTestingModule,
         JwtModule.forRoot({
           config: {
             tokenGetter: tokenGetterWithRequest,
             allowedDomains: ["example-1.com", "example-2.com", "example-3.com"],
           },
-        }),
+        })
       ],
+      providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
     });
     service = TestBed.inject(ExampleHttpService);
     httpMock = TestBed.inject(HttpTestingController);
@@ -155,21 +153,21 @@ authSchemes.forEach((scheme) => {
   let httpMock: HttpTestingController;
 
   describe(`Example HttpService: with ${typeof scheme[0] === "function"
-      ? "an authscheme getter function"
-      : "a simple authscheme getter"
+    ? "an authscheme getter function"
+    : "a simple authscheme getter"
     }`, () => {
       beforeEach(() => {
         TestBed.configureTestingModule({
           imports: [
-            HttpClientTestingModule,
             JwtModule.forRoot({
               config: {
                 tokenGetter: tokenGetter,
                 authScheme: scheme[0],
                 allowedDomains: ["allowed.com"],
               },
-            }),
+            })
           ],
+          providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
         });
         service = TestBed.inject(ExampleHttpService);
         httpMock = TestBed.inject(HttpTestingController);

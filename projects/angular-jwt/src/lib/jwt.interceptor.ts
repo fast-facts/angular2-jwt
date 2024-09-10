@@ -1,10 +1,5 @@
 import { Injectable, Inject } from "@angular/core";
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-} from "@angular/common/http";
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from "@angular/common/http";
 import { DOCUMENT } from "@angular/common";
 import { JwtHelperService } from "./jwthelper.service";
 import { JWT_OPTIONS } from "./jwtoptions.token";
@@ -52,19 +47,18 @@ export class JwtInterceptor implements HttpInterceptor {
     }
 
     // If not the current domain, check the allowed list
-    const hostName = `${requestUrl.hostname}${
-      requestUrl.port && !this.standardPorts.includes(requestUrl.port)
+    const hostName = `${requestUrl.hostname}${requestUrl.port && !this.standardPorts.includes(requestUrl.port)
         ? ":" + requestUrl.port
         : ""
-    }`;
+      }`;
 
     return (
       this.allowedDomains.findIndex((domain) =>
         typeof domain === "string"
           ? domain === hostName
           : domain instanceof RegExp
-          ? domain.test(hostName)
-          : false
+            ? domain.test(hostName)
+            : false
       ) > -1
     );
   }
