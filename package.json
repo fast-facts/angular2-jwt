@@ -33,7 +33,7 @@
     "@types/jasmine": "~5.1.4",
     "@types/node": "^22.7.7",
     "eslint": "^9.13.0",
-    "eslint-config-final": "^1.4.7",
+    "eslint-config-final": "^1.4.8",
     "jasmine-core": "~5.4.0",
     "karma": "^6.4.4",
     "karma-chrome-launcher": "~3.2.0",
@@ -43,7 +43,7 @@
     "ng-packagr": "^18.2.1",
     "ts-node": "~10.9.2",
     "typescript": "^5.5.4",
-    "typescript-eslint": "^8.10.0"
+    "typescript-eslint": "^8.11.0"
   },
   "np": {
     "contents": "dist/angular-jwt"
