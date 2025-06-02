@@ -1,6 +1,6 @@
-import { Injectable, Inject } from "@angular/core";
+import { Injectable, Inject, DOCUMENT } from "@angular/core";
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from "@angular/common/http";
-import { DOCUMENT } from "@angular/common";
+
 import { JwtHelperService } from "./jwthelper.service";
 import { JWT_OPTIONS } from "./jwtoptions.token";
 
