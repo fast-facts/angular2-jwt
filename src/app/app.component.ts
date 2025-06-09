@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ExampleHttpService } from './services/example-http.service';
 
 @Component({
@@ -6,6 +6,6 @@ import { ExampleHttpService } from './services/example-http.service';
   template: `<pre> {{ res$ | async | json }} </pre>`,
 })
 export class AppComponent {
+  private exampleHttpService = inject(ExampleHttpService);
   res$ = this.exampleHttpService.testRequest();
-  constructor(private exampleHttpService: ExampleHttpService) { }
 }
