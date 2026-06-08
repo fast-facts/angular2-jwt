@@ -1,14 +1,8 @@
-import {
-  NgModule,
-  ModuleWithProviders,
-  Optional,
-  SkipSelf,
-  Provider,
-} from "@angular/core";
-import { HttpRequest, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { JwtInterceptor } from "./jwt.interceptor";
-import { JWT_OPTIONS } from "./jwtoptions.token";
-import { JwtHelperService } from "./jwthelper.service";
+import { inject, ModuleWithProviders, NgModule, Provider } from '@angular/core';
+import { HTTP_INTERCEPTORS, HttpRequest } from '@angular/common/http';
+import { JwtInterceptor } from './jwt.interceptor';
+import { JWT_OPTIONS } from './jwtoptions.token';
+import { JwtHelperService } from './jwthelper.service';
 
 export interface JwtConfig {
   tokenGetter?: (
@@ -16,8 +10,8 @@ export interface JwtConfig {
   ) => string | null | Promise<string | null>;
   headerName?: string;
   authScheme?: string | ((request?: HttpRequest<any>) => string);
-  allowedDomains?: Array<string | RegExp>;
-  disallowedRoutes?: Array<string | RegExp>;
+  allowedDomains?: (string | RegExp)[];
+  disallowedRoutes?: (string | RegExp)[];
   throwNoTokenError?: boolean;
   skipWhenExpired?: boolean;
 }
@@ -29,13 +23,16 @@ export interface JwtModuleOptions {
 
 @NgModule()
 export class JwtModule {
-  constructor(@Optional() @SkipSelf() parentModule: JwtModule) {
+  constructor() {
+    const parentModule = inject(JwtModule, { optional: true, skipSelf: true });
+
     if (parentModule) {
       throw new Error(
-        "JwtModule is already loaded. It should only be imported in your application's main module."
+        'JwtModule is already loaded. It should only be imported in your application\'s main module.'
       );
     }
   }
+
   static forRoot(options: JwtModuleOptions): ModuleWithProviders<JwtModule> {
     return {
       ngModule: JwtModule,

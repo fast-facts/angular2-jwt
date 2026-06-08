@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { ExampleHttpService } from './example-http.service';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { JwtModule } from 'angular-jwt';
+import { JwtModule } from '../../../projects/angular-jwt/src';
 
 export function tokenGetter() {
   return 'TEST_TOKEN';
@@ -155,34 +155,34 @@ authSchemes.forEach(scheme => {
   describe(`Example HttpService: with ${typeof scheme[0] === 'function'
     ? 'an authscheme getter function'
     : 'a simple authscheme getter'
-  }`, () => {
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [
-          JwtModule.forRoot({
-            config: {
-              tokenGetter: tokenGetter,
-              authScheme: scheme[0],
-              allowedDomains: ['allowed.com'],
-            },
-          }),
-        ],
-        providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()],
-      });
-      service = TestBed.inject(ExampleHttpService);
-      httpMock = TestBed.inject(HttpTestingController);
-    });
-
-    it(`should set the correct auth scheme a request (${scheme[1]})`, () => {
-      service.testRequest('http://allowed.com').subscribe(response => {
-        expect(response).toBeTruthy();
+    }`, () => {
+      beforeEach(() => {
+        TestBed.configureTestingModule({
+          imports: [
+            JwtModule.forRoot({
+              config: {
+                tokenGetter: tokenGetter,
+                authScheme: scheme[0],
+                allowedDomains: ['allowed.com'],
+              },
+            }),
+          ],
+          providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()],
+        });
+        service = TestBed.inject(ExampleHttpService);
+        httpMock = TestBed.inject(HttpTestingController);
       });
 
-      const httpRequest = httpMock.expectOne('http://allowed.com');
-      expect(httpRequest.request.headers.has('Authorization')).toEqual(true);
-      expect(httpRequest.request.headers.get('Authorization')).toEqual(
-        `${scheme[1]}${tokenGetter()}`
-      );
+      it(`should set the correct auth scheme a request (${scheme[1]})`, () => {
+        service.testRequest('http://allowed.com').subscribe(response => {
+          expect(response).toBeTruthy();
+        });
+
+        const httpRequest = httpMock.expectOne('http://allowed.com');
+        expect(httpRequest.request.headers.has('Authorization')).toEqual(true);
+        expect(httpRequest.request.headers.get('Authorization')).toEqual(
+          `${scheme[1]}${tokenGetter()}`
+        );
+      });
     });
-  });
 });

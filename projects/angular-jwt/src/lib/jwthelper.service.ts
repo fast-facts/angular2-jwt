@@ -1,33 +1,34 @@
-import { HttpRequest } from "@angular/common/http";
-// tslint:disable:no-bitwise
+import { HttpRequest } from '@angular/common/http';
 
-import { Injectable, Inject } from "@angular/core";
-import { JWT_OPTIONS } from "./jwtoptions.token";
+import { inject, Injectable } from '@angular/core';
+import { JWT_OPTIONS } from './jwtoptions.token';
 
 @Injectable()
 export class JwtHelperService {
   tokenGetter: () => string;
 
-  constructor(@Inject(JWT_OPTIONS) config = null) {
-    this.tokenGetter = (config && config.tokenGetter) || function () {};
+  constructor() {
+    const config = inject(JWT_OPTIONS) as any ?? null;
+
+    this.tokenGetter = (config && config.tokenGetter) || function () { };
   }
 
   public urlBase64Decode(str: string): string {
-    let output = str.replace(/-/g, "+").replace(/_/g, "/");
+    let output = str.replace(/-/g, '+').replace(/_/g, '/');
     switch (output.length % 4) {
       case 0: {
         break;
       }
       case 2: {
-        output += "==";
+        output += '==';
         break;
       }
       case 3: {
-        output += "=";
+        output += '=';
         break;
       }
       default: {
-        throw new Error("Illegal base64url string!");
+        throw new Error('Illegal base64url string!');
       }
     }
     return this.b64DecodeUnicode(output);
@@ -36,14 +37,14 @@ export class JwtHelperService {
   // credits for decoder goes to https://github.com/atk
   private b64decode(str: string): string {
     const chars =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
-    let output = "";
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+    let output = '';
 
-    str = String(str).replace(/=+$/, "");
+    str = String(str).replace(/=+$/, '');
 
     if (str.length % 4 === 1) {
       throw new Error(
-        "'atob' failed: The string to be decoded is not correctly encoded."
+        '\'atob\' failed: The string to be decoded is not correctly encoded.'
       );
     }
 
@@ -54,10 +55,10 @@ export class JwtHelperService {
       (buffer = str.charAt(idx++));
       // character found in table? initialize bit storage and add its ascii value;
       ~buffer &&
-      ((bs = bc % 4 ? bs * 64 + buffer : buffer),
-      // and if not first of each 4 characters,
-      // convert the first 8 bits to one ascii character
-      bc++ % 4)
+        ((bs = bc % 4 ? bs * 64 + buffer : buffer),
+          // and if not first of each 4 characters,
+          // convert the first 8 bits to one ascii character
+          bc++ % 4)
         ? (output += String.fromCharCode(255 & (bs >> ((-2 * bc) & 6))))
         : 0
     ) {
@@ -71,28 +72,28 @@ export class JwtHelperService {
     return decodeURIComponent(
       Array.prototype.map
         .call(this.b64decode(str), (c: any) => {
-          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
         })
-        .join("")
+        .join('')
     );
   }
 
   public decodeToken<T = any>(token: string = this.tokenGetter()): T {
-    if (!token || token === "") {
-      return null;
+    if (!token || token === '') {
+      return null as any;
     }
 
-    const parts = token.split(".");
+    const parts = token.split('.');
 
     if (parts.length !== 3) {
       throw new Error(
-        "The inspected token doesn't appear to be a JWT. Check to make sure it has three parts and see https://jwt.io for more."
+        'The inspected token doesn\'t appear to be a JWT. Check to make sure it has three parts and see https://jwt.io for more.'
       );
     }
 
     const decoded = this.urlBase64Decode(parts[1]);
     if (!decoded) {
-      throw new Error("Cannot decode the token.");
+      throw new Error('Cannot decode the token.');
     }
 
     return JSON.parse(decoded);
@@ -104,7 +105,7 @@ export class JwtHelperService {
     let decoded: any;
     decoded = this.decodeToken(token);
 
-    if (!decoded || !decoded.hasOwnProperty("exp")) {
+    if (!decoded || !decoded.hasOwnProperty('exp')) {
       return null;
     }
 
@@ -118,7 +119,7 @@ export class JwtHelperService {
     token: string = this.tokenGetter(),
     offsetSeconds?: number
   ): boolean {
-    if (!token || token === "") {
+    if (!token || token === '') {
       return true;
     }
     const date = this.getTokenExpirationDate(token);
@@ -132,10 +133,10 @@ export class JwtHelperService {
   }
 
   public getAuthScheme(
-    authScheme: Function | string | undefined,
+    authScheme: ((request: HttpRequest<any>) => string) | string | undefined,
     request: HttpRequest<any>
-  ): string {
-    if (typeof authScheme === "function") {
+  ): string | undefined {
+    if (typeof authScheme === 'function') {
       return authScheme(request);
     }
 
