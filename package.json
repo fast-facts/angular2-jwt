@@ -42,7 +42,7 @@
     "ng-packagr": "^22.0.0",
     "ts-node": "~10.9.2",
     "typescript": "^6.0.3",
-    "typescript-eslint": "8.60.1"
+    "typescript-eslint": "8.61.0"
   },
   "np": {
     "contents": "dist/angular-jwt"
