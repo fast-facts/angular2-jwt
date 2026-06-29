@@ -68,12 +68,6 @@
             ]
         },
         {
-            "groupName": "karma",
-            "matchPackageNames": [
-                "*karma*"
-            ]
-        },
-        {
             "groupName": "types",
             "matchPackageNames": [
                 "@types/*"
