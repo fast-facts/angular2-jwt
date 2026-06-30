@@ -8,7 +8,7 @@ export class JwtHelperService {
   tokenGetter: () => string;
 
   constructor() {
-    const config = inject(JWT_OPTIONS) as any ?? null;
+    const config = inject(JWT_OPTIONS, { optional: true }) as any ?? null;
 
     this.tokenGetter = (config && config.tokenGetter) || function () { };
   }
