@@ -33,7 +33,7 @@
     "ng-packagr": "^22.0.0",
     "ts-node": "~10.9.2",
     "typescript": "^6.0.3",
-    "vitest": "^4.0.8"
+    "vitest": "^4.1.9"
   },
   "np": {
     "contents": "dist/angular-jwt"
