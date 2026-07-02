@@ -15,6 +15,9 @@
     "rangeStrategy": "bump",
     "automerge": true,
     "automergeType": "pr",
+    "ignorePaths": [
+        "projects/angular-jwt/package.json"
+    ],
     "packageRules": [
         {
             "matchManagers": [
