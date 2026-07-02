@@ -20,8 +20,8 @@
   ],
   "homepage": "https://github.com/fast-facts/angular2-jwt",
   "peerDependencies": {
-    "@angular/common": "^22.0.1",
-    "@angular/core": "^22.0.1"
+    "@angular/common": "^22.0.2",
+    "@angular/core": "^22.0.2"
   },
   "dependencies": {
     "tslib": "^2.8.1"
