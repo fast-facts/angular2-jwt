@@ -28,7 +28,7 @@
     "@angular/language-service": "^22.0.1",
     "@types/node": "^25.9.5",
     "angular-eslint": "22.1.0",
-    "eslint-config-final": "^1.8.9",
+    "eslint-config-final": "^1.8.10",
     "jsdom": "^29.1.1",
     "ng-packagr": "^22.0.0",
     "typescript": "^6.0.3",
