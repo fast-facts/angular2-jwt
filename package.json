@@ -29,7 +29,7 @@
     "@types/node": "^25.9.5",
     "angular-eslint": "22.1.0",
     "eslint-config-final": "^1.8.11",
-    "jsdom": "^30.0.0",
+    "jsdom": "^30.0.1",
     "ng-packagr": "^22.0.0",
     "typescript": "^6.0.3",
     "vitest": "^4.1.10"
